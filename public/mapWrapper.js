@@ -6,6 +6,7 @@ const MapWrapper = function (element, coords, zoom) {
   this.map.on("click", function(event){
     this.addMarker(event.latlng)
   } .bind(this));
+
   const button = document.createElement('button');
   const buttonDiv = document.getElementById('button');
   button.textContent = "Take me to Chicago"
@@ -13,6 +14,8 @@ const MapWrapper = function (element, coords, zoom) {
   button.addEventListener("click", function (event) {
       this.flyTo()
   }.bind(this));
+
+
 }
 
 MapWrapper.prototype.flyTo = function () {
@@ -20,5 +23,7 @@ MapWrapper.prototype.flyTo = function () {
     this.map.flyTo([41.881832, -87.623177], 15);
 };
 MapWrapper.prototype.addMarker = function (coords) {
-  L.marker(coords).addTo(this.map);
+  let marker = L.marker(coords).addTo(this.map);
+
+  marker.bindPopup(`Your position is  [${marker.getLatLng().lng.toFixed(4)}, ${marker.getLatLng().lat.toFixed(4)}]\n Why did you pick here?`).openPopup()
 };

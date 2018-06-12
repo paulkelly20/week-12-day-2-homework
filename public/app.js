@@ -5,9 +5,19 @@ const drawMap = function () {
   const mapDiv = document.getElementById ("main-map")
   const mainMap = new MapWrapper (mapDiv, glasgow, zoomLevel)
 
+  const whereButton = document.createElement('button');
+  const buttonDiv = document.getElementById('button-where');
+  whereButton.textContent = "Where am i?"
+  buttonDiv.appendChild(whereButton)
+  whereButton.addEventListener("click", function (event) {
+      currentPosition();
+  }.bind(this));
 };
 
 
-
-
+const currentPosition = function(){
+    navigator.geolocation.getCurrentPosition(function(position) {
+      window.alert(`${position.coords.latitude.toFixed(4)}, ${position.coords.longitude.toFixed(4)}`);
+  });
+}
 window.addEventListener("load", drawMap);
